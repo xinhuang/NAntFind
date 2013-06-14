@@ -6,7 +6,7 @@ NAntFind
 
 NAntFind is a c CMake find style dependency discovery extension for NAnt.
 
-You can define your own find module like below:
+The FindSQLServer.include
 
     <module>
       <path>
@@ -18,6 +18,9 @@ You can define your own find module like below:
       </files>
     </module>
 
+The file name must be _Find_ + <module name> + _.include_, so NAntFind can locate your find module automatically.
+
+----
 TODO
 ----
 * Implementation
@@ -27,6 +30,7 @@ TODO
 * A more flexible and easy to use DSL
 * Support *which* for searching only one file, while *find* searches for package
 
+----
 License
 ----
 [GNU Public License][1]
