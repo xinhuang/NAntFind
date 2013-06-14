@@ -2,7 +2,7 @@ NAntFind
 ========
 
     <find package="SQLServer" required="true" version="100" />
-    <echo message="${SQLServer.found}" /> 
+    <echo message="${SQLServer.found}" />
     <echo message="${SQLServer}" />
 
     <find file="SQLCmd.exe" package="SQLServer" version="100" recursive="true"/>
@@ -14,10 +14,20 @@ NAntFind is a c CMake find style dependency discovery extension for NAnt.
 The FindSQLServer.include
 
     <package name="SQLServer" default="100">
-        <module version="100">
+        <module version="foo">
+        	<hints>
+    			<hint value="C:\Program Files\Microsoft SQL Server\bar\Tools\Binn" />
+    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\bar\Tools\Binn" />
+    		</hints>
+    		<names>
+    			<name value="SQLCmd.exe" />
+    			<name value="sqlmonitor.exe" />
+    		</names>
+    	</module>
+    	<module>
     		<hints>
-    			<hint value="C:\Program Files\Microsoft SQL Server\100\Tools\Binn" />
-    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn" />
+    			<hint value="C:\Program Files\Microsoft SQL Server\${version}\Tools\Binn" />
+    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\${version}\Tools\Binn" />
     		</hints>
     		<names>
     			<name value="SQLCmd.exe" />
