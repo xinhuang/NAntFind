@@ -1,34 +1,43 @@
 NAntFind
 ========
 
-    <find module="SQLServer" required="true" />
-    <echo message="${SQLServer.found}" />
+    <find package="SQLServer" required="true" version="100" />
+    <echo message="${SQLServer.found}" /> 
+    <echo message="${SQLServer}" />
+
+    <find file="SQLCmd.exe" package="SQLServer" version="100" recursive="true"/>
+    <echo message="${SQLCmd.exe.found}" />
+    <echo message="${SQLCmd.exe}" />
 
 NAntFind is a c CMake find style dependency discovery extension for NAnt.
 
 The FindSQLServer.include
 
-    <module>
-      <path>
-        <pathelement dir="C:\Program Files\Microsoft SQL Server\100\Tools\Binn" />
-        <pathelement dir="C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn" />
-      </path>
-      <files>
-        <file name="SQLCmd.exe" />
-      </files>
-    </module>
+    <package name="SQLServer" default="100">
+        <module version="100">
+    		<hints>
+    			<hint value="C:\Program Files\Microsoft SQL Server\100\Tools\Binn" />
+    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn" />
+    		</hints>
+    		<names>
+    			<name value="SQLCmd.exe" />
+    			<name value="sqlmonitor.exe" />
+    		</names>
+    	</module>
+    </package>
 
 The file name must be _Find_ + <module name> + _.include_, so NAntFind can locate your find module automatically.
 
 ----
 TODO
 ----
-* Implementation
-* Remove dependency to NAnt, but can be used in NAnt
+* Find for package
+* Find for one file in a given package
 * Search for find modules in ${find.module.path}
-* Search for module of specific version
+* Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)
+* Search for package of specific version
+* Support default package version
 * A more flexible and easy to use DSL
-* Support *which* for searching only one file, while *find* searches for package
 
 ----
 License
