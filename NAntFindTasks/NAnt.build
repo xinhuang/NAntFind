@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<project default="NAntFindExample">
+  <target name="NAntFindExample">
+    <find package="VisualStudio" required="true" />
+  </target>
+</project>
