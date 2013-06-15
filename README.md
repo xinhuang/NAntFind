@@ -1,6 +1,8 @@
 NAntFind
 ========
 
+	<property name="find.module.path" value="find;dependency/more/find" />
+
     <find package="SQLServer" required="true" version="100" />
     <echo message="${SQLServer.found}" />
     <echo message="${SQLServer}" />
