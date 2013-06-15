@@ -39,9 +39,13 @@ The FindSQLServer.include
 The file name must be _Find_ + <module name> + _.include_, so NAntFind can locate your find module automatically.
 
 ----
+Feature
+----
+* Find packages.
+
+----
 TODO
 ----
-* Find for package
 * Find for one file in a given package
 * Search for find modules in ${find.module.path}
 * Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)

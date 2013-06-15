@@ -16,18 +16,23 @@ namespace NAntFind
 
         protected override void ExecuteTask()
         {
+            Project.Log(Level.Info, "Finding package `{0}'...", PackageName);
+
             var findScript = GetFindScriptContent(PackageName);
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(findScript);
 
-            var findProject = new Project(xmlDoc, Level.Info, Project.IndentationLevel);
+            var findProject = new Project(xmlDoc, Level.None, Project.IndentationLevel);
 
             try
             {
                 findProject.Run();
 
                 var packagePath = findProject.Properties["package.path"];
-                Project.Log(Level.Info, string.Format("Package `{0}' found: {1}", PackageName, packagePath));
+
+                Project.Properties[PackageName] = packagePath;
+                Project.Properties[PackageName + ".found"] = true.ToString();
+                Project.Log(Level.Info, packagePath);
             }
             catch (PackageNotFoundException e)
             {
@@ -39,10 +44,15 @@ namespace NAntFind
 
         private string GetFindScriptContent(string packageName)
         {
-            var content = File.ReadAllText("Find" + packageName + ".include");
+            var content = File.ReadAllText(GetFindScriptName(packageName));
             content = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><project default=\"NAntFindTarget\"><target name=\"NAntFindTarget\">"
                       + content + "</target></project>";
             return content;
+        }
+
+        private static string GetFindScriptName(string packageName)
+        {
+            return "Find" + packageName + ".include";
         }
     }
 }

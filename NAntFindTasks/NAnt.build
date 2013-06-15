@@ -2,5 +2,7 @@
 <project default="NAntFindExample">
   <target name="NAntFindExample">
     <find package="VisualStudio" required="true" />
+    <echo message="${VisualStudio.found}" />
+    <echo message="${VisualStudio}" />
   </target>
 </project>
