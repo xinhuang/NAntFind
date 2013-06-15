@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml;
 using NAnt.Core;
 using NAnt.Core.Attributes;
@@ -18,11 +21,11 @@ namespace NAntFind
         {
             Project.Log(Level.Info, "Finding package `{0}'...", PackageName);
 
-            var findScript = GetFindScriptContent(PackageName);
+            var findScript = GetFindScriptContent(PackageName, GetSearchPath());
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(findScript);
 
-            var findProject = new Project(xmlDoc, Level.None, Project.IndentationLevel);
+            var findProject = new Project(xmlDoc, Level.Info, Project.IndentationLevel);
 
             try
             {
@@ -42,12 +45,37 @@ namespace NAntFind
             }
         }
 
-        private string GetFindScriptContent(string packageName)
+        private IEnumerable<string> GetSearchPath()
         {
-            var content = File.ReadAllText(GetFindScriptName(packageName));
+            var searchPath = new List<string> {Environment.CurrentDirectory};
+            if (!string.IsNullOrWhiteSpace(Project.Properties["find.module.path"]))
+                searchPath.AddRange(Project.Properties["find.module.path"]
+                                        .Split(new[] {";"},
+                                               StringSplitOptions.RemoveEmptyEntries));
+            return searchPath;
+        }
+
+        private string GetFindScriptContent(string package, IEnumerable<string> searchPath)
+        {
+            var findFile = GetFindScriptPath(package, searchPath);
+            var content = File.ReadAllText(findFile);
             content = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><project default=\"NAntFindTarget\"><target name=\"NAntFindTarget\">"
                       + content + "</target></project>";
             return content;
+        }
+
+        private string GetFindScriptPath(string package, IEnumerable<string> searchPath)
+        {
+            var filename = GetFindScriptName(package);
+            var dir = searchPath.First(p => Exist(p, filename));
+            if (string.IsNullOrWhiteSpace(dir))
+                throw new FileNotFoundException("Cannot load file " + filename +", find aborted.");
+            return Path.Combine(dir, filename);
+        }
+
+        private bool Exist(string path, string filename)
+        {
+            return File.Exists(Path.Combine(path, filename));
         }
 
         private static string GetFindScriptName(string packageName)

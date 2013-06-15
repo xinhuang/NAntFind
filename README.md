@@ -42,15 +42,15 @@ The file name must be _Find_ + <module name> + _.include_, so NAntFind can locat
 Feature
 ----
 * Find packages.
+* Search for find modules in ${find.module.path}
 
 ----
 TODO
 ----
-* Find for one file in a given package
-* Search for find modules in ${find.module.path}
-* Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)
 * Search for package of specific version
 * Support default package version
+* Find for one file in a given package
+* Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)
 * A more flexible and easy to use DSL
 
 ----
