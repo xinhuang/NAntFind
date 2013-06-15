@@ -25,6 +25,9 @@ namespace NAntFind
             try
             {
                 findProject.Run();
+
+                var packagePath = findProject.Properties["package.path"];
+                Project.Log(Level.Info, string.Format("Package `{0}' found: {1}", PackageName, packagePath));
             }
             catch (PackageNotFoundException e)
             {

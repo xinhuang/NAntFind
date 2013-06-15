@@ -9,7 +9,7 @@ NAntFind
     <echo message="${SQLCmd.exe.found}" />
     <echo message="${SQLCmd.exe}" />
 
-NAntFind is a c CMake find style dependency discovery extension for NAnt.
+NAntFind is a CMake find style dependency discovery extension for NAnt.
 
 The FindSQLServer.include
 

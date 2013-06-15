@@ -4,6 +4,8 @@
     <hint value="C:\Program Files (x86)\Microsoft Visual Studio 11.0" />
     <hint value="D:\Program Files\Microsoft Visual Studio 11.0" />
     <hint value="D:\Program Files (x86)\Microsoft Visual Studio 11.0" />
+    <hint value="Q:\Program Files\Microsoft Visual Studio 11.0" />
+    <hint value="Q:\Program Files (x86)\Microsoft Visual Studio 11.0" />
   </hints>
   <names>
     <name value="Common7\IDE\devenv.exe" />
