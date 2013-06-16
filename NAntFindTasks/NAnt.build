@@ -3,7 +3,7 @@
   <property name="find.module.path" value="find" />
   <target name="NAntFindExample">
     <find package="VisualStudio" required="true" version="11.0" />
-    <echo message="${VisualStudio.found}" />
-    <echo message="${VisualStudio}" />
+    <echo message="Found Visual Studio 2012: ${VisualStudio.found}" />
+    <echo message="Visual Studio 2012 Path: ${VisualStudio}" />
   </target>
 </project>

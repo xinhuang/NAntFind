@@ -6,22 +6,16 @@ using NAnt.Core.Attributes;
 
 namespace NAntFind
 {
-    [TaskName("package")]
-    public class PackageTask : Task
+    [TaskName("version")]
+    public class VersionTask : Task
     {
         private readonly List<Entry> _hints = new List<Entry>();
         private readonly List<Entry> _names = new List<Entry>();
 
-        public class Entry : Element
-        {
-            [TaskAttribute("value")]
-            public string Value { get; set; }
-        }
+        [TaskAttribute("value")]
+        public string Value { get; set; }
 
-        [TaskAttribute("name")]
-        public string PackageName { get; set; }
-
-        [BuildElementCollection("hints", "hint")]
+        [BuildElementCollection("hints", "hint", Required = true)]
         public Entry[] Hints
         {
             set { _hints.AddRange(value); }
@@ -35,16 +29,16 @@ namespace NAntFind
 
         protected override void ExecuteTask()
         {
-            var hints = (from hint in _hints
-                         where Directory.Exists(hint.Value)
-                         select hint).ToList();
+            List<Entry> hints = (from hint in _hints
+                                 where Directory.Exists(hint.Value)
+                                 select hint).ToList();
 
             if (!hints.Any())
                 throw new PackageNotFoundException("None of given hints exists. Search aborted.");
 
-            foreach (var hint in hints)
+            foreach (Entry hint in hints)
             {
-                if (!_names.All(name => Exist(hint, name))) 
+                if (!_names.All(name => Exist(hint, name)))
                     continue;
 
                 Project.Properties["package.path"] = hint.Value;
@@ -68,8 +62,14 @@ namespace NAntFind
 
         private static bool Exist(Entry hint, Entry name)
         {
-            var file = Path.Combine(hint.Value, name.Value);
+            string file = Path.Combine(hint.Value, name.Value);
             return File.Exists(file);
+        }
+
+        public class Entry : Element
+        {
+            [TaskAttribute("value")]
+            public string Value { get; set; }
         }
     }
 }

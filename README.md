@@ -45,11 +45,11 @@ Feature
 ----
 * Find packages.
 * Search for find modules in ${find.module.path}
+* Search for package of specific version
 
 ----
 TODO
 ----
-* Search for package of specific version
 * Support default package version
 * Find for one file in a given package
 * Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)

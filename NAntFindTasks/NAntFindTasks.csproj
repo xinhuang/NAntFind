@@ -42,9 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FindModuleException.cs" />
     <Compile Include="FindTask.cs" />
     <Compile Include="PackageNotFoundException.cs" />
-    <Compile Include="PackageTask.cs" />
+    <Compile Include="VersionTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

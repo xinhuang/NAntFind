@@ -1,5 +1,5 @@
-﻿<package name="SQLServer">
-  <!--<version>-->
+﻿<package name="VisualStudio">
+  <version value="11.0">
     <hints>
       <hint value="C:\Program Files\Microsoft Visual Studio 11.0" />
       <hint value="C:\Program Files (x86)\Microsoft Visual Studio 11.0" />
@@ -12,5 +12,5 @@
       <name value="Common7\IDE\devenv.exe" />
       <name value="Common7\IDE\tf.exe" />
     </names>
-  <!--</version>-->
+  </version>
 </package>
