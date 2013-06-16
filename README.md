@@ -38,15 +38,20 @@ The FindSQLServer.include
     	</version>
     </package>
 
-The file name must be _Find_ + <module name> + _.include_, so NAntFind can locate your find module automatically.
+The file name must be _Find_ + <package name> + _.include_, so NAntFind can locate your find module automatically.
 
 ----
 Feature
 ----
 * Find packages.
 * Search for find modules in ${find.module.path}
-* Search for package of specific version
-* Support default package version
+* Search for a specific version
+* Default package version can be specified
+
+Result can be queried in NAnt variables:
+* **${package.found}**: True/False
+* **${package}**: Package path
+* **${package.version}**: Package version.
 
 ----
 TODO
