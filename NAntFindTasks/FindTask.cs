@@ -12,16 +12,19 @@ namespace NAntFind
     public class FindTask : Task
     {
         [TaskAttribute("package", Required = true)]
-        public string PackageName { get; set; }
+        public string Package { get; set; }
 
         [TaskAttribute("required")]
         public bool Required { get; set; }
 
+        [TaskAttribute("version")]
+        public string Version { get; set; }
+
         protected override void ExecuteTask()
         {
-            Project.Log(Level.Info, "Finding package `{0}'...", PackageName);
+            Project.Log(Level.Info, "Finding package `{0}'...", Package);
 
-            var findScript = GetFindScriptContent(PackageName, GetSearchPath());
+            var findScript = GetFindScriptContent(Package, GetSearchPath());
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(findScript);
 
@@ -33,8 +36,8 @@ namespace NAntFind
 
                 var packagePath = findProject.Properties["package.path"];
 
-                Project.Properties[PackageName] = packagePath;
-                Project.Properties[PackageName + ".found"] = true.ToString();
+                Project.Properties[Package] = packagePath;
+                Project.Properties[Package + ".found"] = true.ToString();
                 Project.Log(Level.Info, packagePath);
             }
             catch (PackageNotFoundException e)

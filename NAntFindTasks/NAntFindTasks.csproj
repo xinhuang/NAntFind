@@ -48,8 +48,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FindVisualStudio.include" />
-    <None Include="NAnt.build" />
+    <None Include="FindVisualStudio.include">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NAnt.build">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

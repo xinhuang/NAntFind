@@ -2,7 +2,7 @@
 <project default="NAntFindExample">
   <property name="find.module.path" value="find" />
   <target name="NAntFindExample">
-    <find package="VisualStudio" required="true" />
+    <find package="VisualStudio" required="true" version="11.0" />
     <echo message="${VisualStudio.found}" />
     <echo message="${VisualStudio}" />
   </target>
