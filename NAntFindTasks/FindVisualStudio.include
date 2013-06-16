@@ -1,4 +1,4 @@
-﻿<package name="VisualStudio">
+﻿<package name="VisualStudio" default="11.0">
   <version value="11.0">
     <hints>
       <hint value="C:\Program Files\Microsoft Visual Studio 11.0" />

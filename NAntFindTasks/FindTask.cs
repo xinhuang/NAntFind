@@ -11,10 +11,7 @@ namespace NAntFind
     [TaskName("find")]
     public class FindTask : Task
     {
-        public FindTask()
-        {
-            Version = "default";
-        }
+        private const string DefaultVersion = "default";
 
         [TaskAttribute("package", Required = true)]
         public string Package { get; set; }
@@ -29,22 +26,23 @@ namespace NAntFind
         {
             Project.Log(Level.Info, "Finding package `{0}'...", Package);
 
-            string scriptPath = GetFindScriptPath(Package, GetSearchPath());
-            var findDoc = new XmlDocument();
-            findDoc.Load(scriptPath);
-            XmlNode packageNode = GetPackageNode(findDoc, Package);
-            XmlNode version = GetVersionNode(packageNode, Version);
-            XmlDocument script = ComposeScript(version.OuterXml);
-            var findProject = new Project(script, Level.Warning, Project.IndentationLevel);
+            var script = GetScriptDocument();
+            Run(script);
+        }
+
+        private void Run(XmlDocument script)
+        {
+            var project = new Project(script, Level.Warning, Project.IndentationLevel);
 
             try
             {
-                findProject.Run();
+                project.Run();
 
-                string packagePath = findProject.Properties["package.path"];
+                string packagePath = project.Properties["package.path"];
 
                 Project.Properties[Package] = packagePath;
                 Project.Properties[Package + ".found"] = true.ToString();
+                Project.Properties[Package + ".version"] = Version == DefaultVersion ? "N/A" : Version;
                 Project.Log(Level.Info, packagePath);
             }
             catch (PackageNotFoundException e)
@@ -55,13 +53,35 @@ namespace NAntFind
             }
         }
 
+        private XmlDocument GetScriptDocument()
+        {
+            string scriptPath = GetFindScriptPath(Package, GetSearchPath());
+
+            var findDoc = new XmlDocument();
+            findDoc.Load(scriptPath);
+
+            XmlNode packageNode = GetPackageNode(findDoc, Package);
+            if (string.IsNullOrWhiteSpace(Version))
+                Version = GetPackageDefaultVersion(packageNode);
+
+            XmlNode versionNode = GetVersionNode(packageNode, Version);
+            XmlDocument script = ComposeScript(versionNode.OuterXml);
+
+            return script;
+        }
+
+        private string GetPackageDefaultVersion(XmlNode packageNode)
+        {
+            string result = packageNode.GetAttributeValue("default");
+            return !string.IsNullOrWhiteSpace(result) ? result : DefaultVersion;
+        }
+
         private XmlNode GetPackageNode(XmlDocument doc, string package)
         {
             foreach (XmlNode node in doc.ChildNodes)
             {
                 if (node.Name == "package"
-                    && node.Attributes != null
-                    && node.Attributes["name"].Value == package)
+                    && node.GetAttributeValue("name") == package)
                     return node;
             }
             throw new FindModuleException(string.Format("Cannot find package {0} in {1}.", 
@@ -71,7 +91,7 @@ namespace NAntFind
         private XmlDocument ComposeScript(string taskXml)
         {
             var document = new XmlDocument();
-            string targetName = "find." + Package + ".Ver." + Version;
+            string targetName = "find." + Package + ".ver." + Version;
             string content =
                 string.Format(
                     "<?xml version=\"1.0\" encoding=\"utf-8\" ?><project default=\"{0}\"><target name=\"{0}\">{1}</target></project>",
@@ -86,11 +106,9 @@ namespace NAntFind
             {
                 if (node.Name != "version")
                     continue;
-                if (node.Attributes == null || node.Attributes.Count == 0)
-                    continue;
-                string nodeVersion = node.Attributes["value"].Value;
-                if (string.IsNullOrWhiteSpace(nodeVersion))
-                    nodeVersion = "default";
+                var nodeVersion = node.GetAttributeValue("value");
+                if (string.IsNullOrWhiteSpace(nodeVersion) && version == DefaultVersion)
+                    return node;
                 if (nodeVersion == version)
                     return node;
             }

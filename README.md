@@ -15,7 +15,7 @@ NAntFind is a CMake find style dependency discovery extension for NAnt.
 
 The FindSQLServer.include
 
-    <package name="SQLServer" default="100">
+    <package name="SQLServer">
         <version value="foo">
         	<hints>
     			<hint value="C:\Program Files\Microsoft SQL Server\bar\Tools\Binn" />
@@ -46,11 +46,11 @@ Feature
 * Find packages.
 * Search for find modules in ${find.module.path}
 * Search for package of specific version
+* Support default package version
 
 ----
 TODO
 ----
-* Support default package version
 * Find for one file in a given package
 * Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)
 * A more flexible and easy to use DSL
