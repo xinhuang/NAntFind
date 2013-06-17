@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using NAnt.Core;
 using NAnt.Core.Attributes;
@@ -61,7 +60,7 @@ namespace NAntFind
             findDoc.Load(scriptPath);
 
             XmlNode packageNode = GetPackageNode(findDoc, Package);
-            if (string.IsNullOrWhiteSpace(Version))
+            if (Ext.IsNullOrWhiteSpace(Version))
                 Version = GetPackageDefaultVersion(packageNode);
 
             XmlNode versionNode = GetVersionNode(packageNode, Version);
@@ -72,8 +71,8 @@ namespace NAntFind
 
         private string GetPackageDefaultVersion(XmlNode packageNode)
         {
-            string result = packageNode.GetAttributeValue("default");
-            return !string.IsNullOrWhiteSpace(result) ? result : DefaultVersion;
+            string result = Ext.GetAttributeValue(packageNode, "default");
+            return !Ext.IsNullOrWhiteSpace(result) ? result : DefaultVersion;
         }
 
         private XmlNode GetPackageNode(XmlDocument doc, string package)
@@ -81,7 +80,7 @@ namespace NAntFind
             foreach (XmlNode node in doc.ChildNodes)
             {
                 if (node.Name == "package"
-                    && node.GetAttributeValue("name") == package)
+                    && Ext.GetAttributeValue(node, "name") == package)
                     return node;
             }
             throw new FindModuleException(string.Format("Cannot find package {0} in {1}.", 
@@ -106,8 +105,8 @@ namespace NAntFind
             {
                 if (node.Name != "version")
                     continue;
-                var nodeVersion = node.GetAttributeValue("value");
-                if (string.IsNullOrWhiteSpace(nodeVersion) && version == DefaultVersion)
+                var nodeVersion = Ext.GetAttributeValue(node, "value");
+                if (Ext.IsNullOrWhiteSpace(nodeVersion) && version == DefaultVersion)
                     return node;
                 if (nodeVersion == version)
                     return node;
@@ -118,7 +117,7 @@ namespace NAntFind
         private IEnumerable<string> GetSearchPath()
         {
             var searchPath = new List<string> {Environment.CurrentDirectory};
-            if (!string.IsNullOrWhiteSpace(Project.Properties["find.module.path"]))
+            if (!Ext.IsNullOrWhiteSpace(Project.Properties["find.module.path"]))
                 searchPath.AddRange(Project.Properties["find.module.path"]
                                         .Split(new[] {";"},
                                                StringSplitOptions.RemoveEmptyEntries));
@@ -128,8 +127,8 @@ namespace NAntFind
         private string GetFindScriptPath(string package, IEnumerable<string> searchPath)
         {
             string filename = GetFindScriptName(package);
-            string dir = searchPath.First(p => Exist(p, filename));
-            if (string.IsNullOrWhiteSpace(dir))
+            string dir = Ext.First(searchPath, p => Exist(p, filename));
+            if (Ext.IsNullOrWhiteSpace(dir))
                 throw new FileNotFoundException("Cannot load file " + filename + ", find aborted.");
             return Path.Combine(dir, filename);
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using NAnt.Core;
 using NAnt.Core.Attributes;
 
@@ -9,6 +8,7 @@ namespace NAntFind
     [TaskName("version")]
     public class VersionTask : Task
     {
+        private const int DisplayEntryMax = 5;
         private readonly List<Entry> _hints = new List<Entry>();
         private readonly List<Entry> _names = new List<Entry>();
 
@@ -29,16 +29,14 @@ namespace NAntFind
 
         protected override void ExecuteTask()
         {
-            List<Entry> hints = (from hint in _hints
-                                 where Directory.Exists(hint.Value)
-                                 select hint).ToList();
+            List<Entry> hints = Ext.Where(_hints, hint => Directory.Exists(hint.Value));
 
-            if (!hints.Any())
+            if (hints.Count == 0)
                 throw new PackageNotFoundException("None of given hints exists. Search aborted.");
 
             foreach (Entry hint in hints)
             {
-                if (!_names.All(name => Exist(hint, name)))
+                if (!Ext.All(_names, name => Exist(hint, name)))
                     continue;
 
                 Project.Properties["package.path"] = hint.Value;
@@ -50,11 +48,10 @@ namespace NAntFind
 
         private string NotFoundMessage()
         {
-            const int DisplayEntryMax = 5;
-            string files = string.Join(", ", _names.Take(DisplayEntryMax).Select(o => o.Value));
+            string files = string.Join(", ", Ext.Take(_names, DisplayEntryMax, o => o.Value));
             if (_names.Count > DisplayEntryMax)
                 files += "...";
-            string path = string.Join("\n    ", _hints.Take(DisplayEntryMax).Select(o => o.Value));
+            string path = string.Join("\n    ", Ext.Take(_hints, DisplayEntryMax, o => o.Value));
             if (_hints.Count > DisplayEntryMax)
                 path += "\n...";
             return string.Format("Searching for files\n    {0}\nunder path\n    {1}\nfailed.", files, path);
