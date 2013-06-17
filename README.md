@@ -63,7 +63,7 @@ TODO
 ----
 License
 ----
-[GNU Public License][1]
+[GNU Lesser General Public License][1]
 
 
-  [1]: http://www.gnu.org/copyleft/gpl.html
+  [1]: http://www.gnu.org/copyleft/lgpl.html
