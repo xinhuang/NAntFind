@@ -11,5 +11,11 @@
     <find package="VisualStudio" />
     <echo message="Found default Visual Studio: ${VisualStudio.found}" />
     <echo message="Visual Studio Version: ${VisualStudio.version}" />
+    
+    <!--Find devenv.com-->
+    <find file="devenv.com" package="VisualStudio" />
+    <echo message="Found devenv.com: ${devenv.com.found}" />
+    <echo message="devenv.com: ${devenv.com}" />
+    <echo message="Version: ${devenv.com.version}" />
   </target>
 </project>

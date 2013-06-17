@@ -22,12 +22,18 @@ namespace NAntFind
         [TaskAttribute("version")]
         public string Version { get; set; }
 
+        [TaskAttribute("file")]
+        public string FileName { get; set; }
+
         protected override void ExecuteTask()
         {
             Project.Log(Level.Info, "Finding package `{0}'...", Package);
 
-            var script = GetScriptDocument();
-            Run(script);
+            if (string.IsNullOrWhiteSpace(FileName))
+            {
+                var script = GetScriptDocument();
+                Run(script);
+            }
         }
 
         private void Run(XmlDocument script)
@@ -55,6 +61,14 @@ namespace NAntFind
 
         private XmlDocument GetScriptDocument()
         {
+            var versionNode = GetTargetVersionNode();
+            XmlDocument script = ComposeScript(versionNode.OuterXml);
+
+            return script;
+        }
+
+        private XmlNode GetTargetVersionNode()
+        {
             string scriptPath = GetFindScriptPath(Package, GetSearchPath());
 
             var findDoc = new XmlDocument();
@@ -65,9 +79,7 @@ namespace NAntFind
                 Version = GetPackageDefaultVersion(packageNode);
 
             XmlNode versionNode = GetVersionNode(packageNode, Version);
-            XmlDocument script = ComposeScript(versionNode.OuterXml);
-
-            return script;
+            return versionNode;
         }
 
         private string GetPackageDefaultVersion(XmlNode packageNode)

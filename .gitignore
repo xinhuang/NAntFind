@@ -2,3 +2,6 @@
 /NAntFindTasks/bin
 *.user
 *.suo
+/TestResults
+/TestNAntFind/obj
+/TestNAntFind/bin
