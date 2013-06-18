@@ -13,6 +13,11 @@ namespace NAntFind
     {
         private const string DefaultVersion = "default";
 
+        public FindTask()
+        {
+            Recursive = true;
+        }
+
         [TaskAttribute("package", Required = true)]
         public string Package { get; set; }
 
@@ -25,14 +30,42 @@ namespace NAntFind
         [TaskAttribute("file")]
         public string FileName { get; set; }
 
+        [TaskAttribute("recursive")]
+        public bool Recursive { get; set; }
+
         protected override void ExecuteTask()
         {
-            Project.Log(Level.Info, "Finding package `{0}'...", Package);
-
-            if (string.IsNullOrWhiteSpace(FileName))
+            try
             {
-                var script = GetScriptDocument();
-                Run(script);
+                if (string.IsNullOrWhiteSpace(FileName))
+                {
+                    Project.Log(Level.Info, "Finding package `{0}'...", Package);
+                    var script = GetScriptDocument();
+                    Run(script);
+                }
+                else
+                {
+                    Project.Log(Level.Info, "Finding file `{0}' in `{1}' {2}...",
+                                FileName, Package, Recursive ? "recursively" : "only in top level");
+                    FindFile();
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                if (Required)
+                    throw;
+                Project.Log(Level.Warning, e.Message);
+            }
+        }
+
+        private void FindFile()
+        {
+            string script = GetFindScriptPath(Package, GetSearchPath());
+            var package = new Package(File.ReadAllText(script));
+            Dictionary<string, string> result = package.FindFile(FileName, Package, Version, Recursive);
+            foreach (var property in result)
+            {
+                Project.Properties[property.Key] = property.Value;
             }
         }
 

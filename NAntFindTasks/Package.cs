@@ -9,6 +9,7 @@ namespace NAntFind
     {
         private readonly string _name;
         private readonly IDictionary<string, Version> _versions = new Dictionary<string, Version>();
+        private readonly string _defaultVersion;
 
         public Package(string xml)
         {
@@ -17,7 +18,10 @@ namespace NAntFind
 
             Debug.Assert(doc.DocumentElement != null);
             Debug.Assert(doc.DocumentElement.Name == "package");
-            _name = doc.DocumentElement.Attributes["name"].Value;
+            Debug.Assert(doc.DocumentElement.Attributes["name"] != null);
+            _name = doc.DocumentElement.GetAttribute("name");
+
+            _defaultVersion = doc.DocumentElement.GetAttribute("default");
 
             foreach (XmlNode node in doc.DocumentElement.ChildNodes)
             {
@@ -37,6 +41,23 @@ namespace NAntFind
         public IDictionary<string, Version> Versions
         {
             get { return _versions; }
+        }
+
+        public string DefaultVersion
+        {
+            get { return _defaultVersion; }
+        }
+
+        public Dictionary<string, string> FindFile(string file, string package, string ver, bool recursive)
+        {
+            if (string.IsNullOrWhiteSpace(ver))
+                ver = DefaultVersion;
+            if (!Versions.ContainsKey(ver))
+                throw new FindModuleException(String.Format("Dont know how to find `{0}' in {1} Ver {2}",
+                                                            file, package, ver));
+
+            var version = Versions[ver];
+            return version.FindFile(file, recursive);
         }
     }
 }

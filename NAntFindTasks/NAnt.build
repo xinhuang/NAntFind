@@ -17,5 +17,7 @@
     <echo message="Found devenv.com: ${devenv.com.found}" />
     <echo message="devenv.com: ${devenv.com}" />
     <echo message="Version: ${devenv.com.version}" />
+    
+    <find file="devenv.com" package="VisualStudio" recursive="False" />
   </target>
 </project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -43,6 +44,31 @@ namespace NAntFind
         public List<string> Names
         {
             get { return _names; }
+        }
+
+        public Dictionary<string, string> FindFile(string file, bool recursive)
+        {
+            return RecursiveFind(file, recursive);
+        }
+
+        private Dictionary<string, string> RecursiveFind(string file, bool recursive)
+        {
+            var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            foreach (var path in Hints.Where(hint => Directory.Exists(hint)).SelectMany(hint => Directory.EnumerateFiles(hint, file, searchOption)))
+            {
+                return MakeResult(file, path);
+            }
+            throw new FileNotFoundException(file + " cannot be found.");
+        }
+
+        private Dictionary<string, string> MakeResult(string file, string path)
+        {
+            return new Dictionary<string, string>
+            {
+                {file, path},
+                {file + ".found", true.ToString()},
+                {file + ".version", Value}
+            };
         }
     }
 }
