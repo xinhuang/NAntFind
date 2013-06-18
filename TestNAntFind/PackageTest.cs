@@ -33,8 +33,7 @@ namespace TestNAntFind
 
             var sut = new Package(xml);
 
-
-            Assert.IsNotNull(sut.Versions["11"]);
+            Assert.AreEqual(1, sut.Versions.Count);
             Assert.IsNotNull(sut.Versions["11"]);
         }
     }
