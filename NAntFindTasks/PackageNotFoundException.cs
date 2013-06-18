@@ -2,7 +2,7 @@
 
 namespace NAntFind
 {
-    internal class PackageNotFoundException : Exception
+    internal class PackageNotFoundException : FindException
     {
         public PackageNotFoundException(string message)
             : base(message)

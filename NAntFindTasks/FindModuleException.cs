@@ -2,7 +2,7 @@
 
 namespace NAntFind
 {
-    internal class FindModuleException : Exception
+    internal class FindModuleException : FindException
     {
         public FindModuleException(string message)
             : base(message)

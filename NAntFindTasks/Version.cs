@@ -54,9 +54,12 @@ namespace NAntFind
         private Dictionary<string, string> RecursiveFind(string file, bool recursive)
         {
             var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            foreach (var path in Hints.Where(hint => Directory.Exists(hint)).SelectMany(hint => Directory.EnumerateFiles(hint, file, searchOption)))
+            foreach (var hint in Hints.Where(Directory.Exists))
             {
-                return MakeResult(file, path);
+                foreach (var path in Directory.EnumerateFiles(hint, file, searchOption))
+                {
+                    return MakeResult(file, path);
+                }
             }
             throw new FileNotFoundException(file + " cannot be found.");
         }
@@ -69,6 +72,25 @@ namespace NAntFind
                 {file + ".found", true.ToString()},
                 {file + ".version", Value}
             };
+        }
+
+        public string Find()
+        {
+            foreach (var hint in Hints.Where(Directory.Exists))
+            {
+                bool found = true;
+                foreach (var name in Names)
+                {
+                    if (!File.Exists(Path.Combine(hint, name)))
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found)
+                    return hint;
+            }
+            throw new PackageNotFoundException("Package of Version " + Value + " cannot be found.");
         }
     }
 }
