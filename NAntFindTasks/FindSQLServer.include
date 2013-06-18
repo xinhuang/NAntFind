@@ -1,0 +1,21 @@
+﻿<!--This file is for version-less find module test-->
+<package name="SQLServer">
+  <version>
+    <hints>
+      <hint value="C:\Program Files\Microsoft SQL Server\100" />
+      <hint value="C:\Program Files (x86)\Microsoft SQL Servern" />
+    </hints>
+    <names>
+      <name value="Tools\Binn\SQLCmd.exe" />
+    </names>
+  </version>
+  <version value="11.0">
+    <hints>
+      <hint value="C:\Program Files\Microsoft SQL Server\110" />
+      <hint value="C:\Program Files (x86)\Microsoft SQL Server" />
+    </hints>
+    <names>
+      <name value="Tools\Binn\SQLCmd.exe" />
+    </names>
+  </version>
+</package>

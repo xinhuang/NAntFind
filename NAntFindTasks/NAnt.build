@@ -19,5 +19,10 @@
     <echo message="Version: ${devenv.com.version}" />
     
     <find file="devenv.com" package="VisualStudio" recursive="False" />
+    
+    <!--Find SQL Server-->
+    <find package="SQLServer" />
+    <echo message="Found default SQL Server: ${SQLServer.found}" />
+    <echo message="SQL Server Version: ${SQLServer.version}" />
   </target>
 </project>

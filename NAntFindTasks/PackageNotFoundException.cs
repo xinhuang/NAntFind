@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NAntFind
+﻿namespace NAntFind
 {
     internal class PackageNotFoundException : FindException
     {

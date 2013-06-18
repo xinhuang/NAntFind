@@ -2,7 +2,7 @@
 
 namespace NAntFind
 {
-    static class XmlNodeExt
+    internal static class XmlNodeExt
     {
         public static string GetAttributeValue(this XmlNode self, string name)
         {

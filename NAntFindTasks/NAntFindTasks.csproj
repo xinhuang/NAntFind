@@ -51,11 +51,11 @@
     <Compile Include="Package.cs" />
     <Compile Include="PackageNotFoundException.cs" />
     <Compile Include="Version.cs" />
-    <Compile Include="VersionTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlNodeExt.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FindSQLServer.include" />
     <None Include="FindVisualStudio.include">
       <SubType>Designer</SubType>
     </None>

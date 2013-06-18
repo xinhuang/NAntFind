@@ -43,7 +43,8 @@ The file name must be _Find_ + <package name> + _.include_, so NAntFind can loca
 ----
 Feature
 ----
-* Find packages.
+* Find packages
+* Find one file in a given package
 * Search for find modules in ${find.module.path}
 * Search for a specific version
 * Default package version can be specified
@@ -56,8 +57,7 @@ Result can be queried in NAnt variables:
 ----
 TODO
 ----
-* Find for one file in a given package
-* Remove dependency to NAnt, but can be used in NAnt (can benefit NAnt build-in functions)
+* Use environment variables in find modules
 * A more flexible and easy to use DSL
 
 ----

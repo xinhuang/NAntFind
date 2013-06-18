@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -8,27 +7,20 @@ namespace NAntFind
 {
     public class Version
     {
-        private readonly string _value;
+        public const string Unspecified = "default";
         private readonly List<string> _hints;
         private readonly List<string> _names;
+        private readonly string _value;
 
         public Version(XmlNode node)
         {
-            Debug.Assert(node.Attributes != null);
-            Debug.Assert(node.Attributes["value"] != null);
-            _value = node.Attributes["value"].Value;
+            if (node.Attributes != null && node.Attributes["value"] != null)
+                _value = node.Attributes["value"].Value;
+            else
+                _value = Unspecified;
 
             _hints = ParseValues(node["hints"]);
             _names = ParseValues(node["names"]);
-        }
-
-        private List<string> ParseValues(XmlElement element)
-        {
-            if (element == null)
-                return new List<string>();
-            return (from XmlNode node in element.ChildNodes 
-                    where node.Attributes != null && node.Attributes["value"] != null 
-                    select node.Attributes["value"].Value).ToList();
         }
 
         public string Value
@@ -46,6 +38,15 @@ namespace NAntFind
             get { return _names; }
         }
 
+        private List<string> ParseValues(XmlElement element)
+        {
+            if (element == null)
+                return new List<string>();
+            return (from XmlNode node in element.ChildNodes
+                    where node.Attributes != null && node.Attributes["value"] != null
+                    select node.Attributes["value"].Value).ToList();
+        }
+
         public Dictionary<string, string> FindFile(string file, bool recursive)
         {
             return RecursiveFind(file, recursive);
@@ -53,10 +54,10 @@ namespace NAntFind
 
         private Dictionary<string, string> RecursiveFind(string file, bool recursive)
         {
-            var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            foreach (var hint in Hints.Where(Directory.Exists))
+            SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            foreach (string hint in Hints.Where(Directory.Exists))
             {
-                foreach (var path in Directory.EnumerateFiles(hint, file, searchOption))
+                foreach (string path in Directory.EnumerateFiles(hint, file, searchOption))
                 {
                     return MakeResult(file, path);
                 }
@@ -76,10 +77,10 @@ namespace NAntFind
 
         public string Find()
         {
-            foreach (var hint in Hints.Where(Directory.Exists))
+            foreach (string hint in Hints.Where(Directory.Exists))
             {
                 bool found = true;
-                foreach (var name in Names)
+                foreach (string name in Names)
                 {
                     if (!File.Exists(Path.Combine(hint, name)))
                     {

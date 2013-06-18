@@ -1,6 +1,6 @@
 ﻿namespace NAntFind
 {
-    class FileNotFoundException:FindException
+    internal class FileNotFoundException : FindException
     {
         public FileNotFoundException(string message) : base(message)
         {
