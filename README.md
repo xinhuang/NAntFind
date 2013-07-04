@@ -38,7 +38,7 @@ The FindSQLServer.include
     	</version>
     </package>
 
-The file name must be _Find_ + <package name> + _.include_, so NAntFind can locate your find module automatically.
+The file name must be _Find_ + <package name> + _.xml_, so NAntFind can locate your find module automatically.
 
 ----
 Feature
@@ -58,6 +58,7 @@ Result can be queried in NAnt variables:
 TODO
 ----
 * Use environment variables in find modules
+* Query value from registry
 * A more flexible and easy to use DSL
 
 ----
