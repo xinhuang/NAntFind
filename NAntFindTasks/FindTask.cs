@@ -11,6 +11,7 @@ namespace NAntFind
     public class FindTask : Task
     {
         private const string DefaultVersion = "default";
+        private const string FindModuleExt = ".xml";
 
         public FindTask()
         {
@@ -99,7 +100,7 @@ namespace NAntFind
 
         private static string GetFindScriptName(string packageName)
         {
-            return "Find" + packageName + ".include";
+            return "Find" + packageName + FindModuleExt;
         }
     }
 }

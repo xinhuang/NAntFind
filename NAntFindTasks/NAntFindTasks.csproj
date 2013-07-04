@@ -55,10 +55,10 @@
     <Compile Include="XmlNodeExt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FindSQLServer.include" />
-    <None Include="FindVisualStudio.include">
+    <Content Include="FindSQLServer.xml" />
+    <Content Include="FindVisualStudio.xml">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
     <None Include="NAnt.build">
       <SubType>Designer</SubType>
     </None>
@@ -67,7 +67,7 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)\*.build" "$(TargetDir)"
 if not exist "$(TargetDir)\find" ( mkdir "$(TargetDir)\find" )
-copy "$(ProjectDir)\*.include" "$(TargetDir)\find"</PostBuildEvent>
+copy "$(ProjectDir)\Find*.xml" "$(TargetDir)\find"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
