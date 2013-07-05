@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using Microsoft.Win32;
 
 namespace NAntFind
 {
@@ -42,9 +44,30 @@ namespace NAntFind
         {
             if (element == null)
                 return new List<string>();
-            return (from XmlNode node in element.ChildNodes
-                    where node.Attributes != null && node.Attributes["value"] != null
-                    select node.Attributes["value"].Value).ToList();
+
+            var hintNodes = GetChildNodes(element, "hint");
+            var result = new List<string>();
+            foreach (var hintNode in hintNodes)
+            {
+                var dir = hintNode.GetAttributeValue("value").Trim();
+                if (string.IsNullOrEmpty(dir))
+                {
+                    var key = hintNode.GetAttributeValue("key").Trim();
+                    var name = hintNode.GetAttributeValue("name").Trim();
+                    dir = Registry.GetValue(key, name, string.Empty).ToString().Trim();
+                }
+                if (!string.IsNullOrEmpty(dir))
+                    result.Add(dir);
+            }
+
+            return result;
+        }
+
+        private IEnumerable<XmlNode> GetChildNodes(XmlElement element, string name)
+        {
+            return from XmlNode node in element.ChildNodes
+                   where node.Name == name
+                   select node;
         }
 
         public Dictionary<string, string> FindFile(string file, bool recursive)

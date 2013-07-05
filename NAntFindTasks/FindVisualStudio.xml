@@ -1,12 +1,7 @@
 ﻿<package name="VisualStudio" default="11.0">
   <version value="11.0">
     <hints>
-      <hint value="C:\Program Files\Microsoft Visual Studio 11.0" />
-      <hint value="C:\Program Files (x86)\Microsoft Visual Studio 11.0" />
-      <hint value="D:\Program Files\Microsoft Visual Studio 11.0" />
-      <hint value="D:\Program Files (x86)\Microsoft Visual Studio 11.0" />
-      <hint value="Q:\Program Files\Microsoft Visual Studio 11.0" />
-      <hint value="Q:\Program Files (x86)\Microsoft Visual Studio 11.0" />
+      <hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0" name="InstallDir" />
     </hints>
     <names>
       <name value="Common7\IDE\devenv.exe" />
