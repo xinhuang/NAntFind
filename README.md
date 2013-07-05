@@ -50,17 +50,20 @@ Feature
 * Search for a specific version
 * Default package version can be specified
 * Query value from registry
+* Use environment variables in find module
 
 Result can be queried in NAnt variables:
 * **${package.found}**: True/False
 * **${package}**: Package path
-* **${package.version}**: Package version.
+* **${package.version}**: Package version
+* **${file.name.found}**: True/False
+* **${file.name}: File path
+* **${file.name.version}: Package version which the file belongs to
 
 ----
 TODO
 ----
 * Allow substution in find module
-* Use environment variables in find module
 * A more flexible and easy to use DSL
 
 ----
