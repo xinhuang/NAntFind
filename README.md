@@ -57,8 +57,8 @@ Result can be queried in NAnt variables:
 * **${package}**: Package path
 * **${package.version}**: Package version
 * **${file.name.found}**: True/False
-* **${file.name}: File path
-* **${file.name.version}: Package version which the file belongs to
+* **${file.name}**: File path
+* **${file.name.version}**: Package version which the file belongs to
 
 ----
 TODO
