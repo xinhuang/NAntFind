@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 
 namespace NAntFind
 {
@@ -11,6 +13,13 @@ namespace NAntFind
             if (self.Attributes[name] == null)
                 return string.Empty;
             return self.Attributes[name].Value;
+        }
+
+        public static IEnumerable<XmlNode> GetChildNodes(this XmlElement self, string name)
+        {
+            return from XmlNode node in self.ChildNodes
+                   where node.Name == name
+                   select node;
         }
     }
 }

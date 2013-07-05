@@ -18,13 +18,6 @@ namespace TestNAntFind
             var sut = new Version(doc.FirstChild);
 
             Assert.AreEqual(2, sut.Hints.Count);
-            CollectionAssert.AreEqual(
-                new List<string>
-                {
-                    "C:\\Program Files\\Microsoft Visual Studio 11.0",
-                    "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0"
-                },
-                sut.Hints);
         }
 
         [TestMethod]

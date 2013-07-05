@@ -4,8 +4,8 @@
       <hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0" name="InstallDir" />
     </hints>
     <names>
-      <name value="Common7\IDE\devenv.exe" />
-      <name value="Common7\IDE\tf.exe" />
+      <name value="devenv.exe" />
+      <name value="tf.exe" />
     </names>
   </version>
 </package>

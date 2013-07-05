@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Microsoft.Win32;
 
 namespace NAntFind
 {
     public class Version
     {
         public const string Unspecified = "default";
-        private readonly List<string> _hints;
+        private readonly Hints _hints;
         private readonly List<string> _names;
         private readonly string _value;
 
@@ -21,61 +19,24 @@ namespace NAntFind
             else
                 _value = Unspecified;
 
-            _hints = ParseValues(node["hints"]);
-            _names = ParseValues(node["names"]);
+            _hints = Hints.Parse(node["hints"]);
+            _names = ParseNames(node["names"]);
         }
 
-        public string Value
-        {
-            get { return _value; }
-        }
+        public string Value { get { return _value; } }
+        public Hints Hints { get { return _hints; } }
+        public List<string> Names { get { return _names; } }
 
-        public List<string> Hints
-        {
-            get { return _hints; }
-        }
-
-        public List<string> Names
-        {
-            get { return _names; }
-        }
-
-        private List<string> ParseValues(XmlElement element)
+        private static List<string> ParseNames(XmlElement element)
         {
             if (element == null)
                 return new List<string>();
-
-            var hintNodes = GetChildNodes(element, "hint");
-            var result = new List<string>();
-            foreach (var hintNode in hintNodes)
-            {
-                var dir = hintNode.GetAttributeValue("value").Trim();
-                if (string.IsNullOrEmpty(dir))
-                {
-                    var key = hintNode.GetAttributeValue("key").Trim();
-                    var name = hintNode.GetAttributeValue("name").Trim();
-                    dir = Registry.GetValue(key, name, string.Empty).ToString().Trim();
-                }
-                if (!string.IsNullOrEmpty(dir))
-                    result.Add(dir);
-            }
-
-            return result;
-        }
-
-        private IEnumerable<XmlNode> GetChildNodes(XmlElement element, string name)
-        {
-            return from XmlNode node in element.ChildNodes
-                   where node.Name == name
-                   select node;
+            return (from XmlNode node in element.ChildNodes
+                    where node.Attributes != null && node.Attributes["value"] != null
+                    select node.Attributes["value"].Value).ToList();
         }
 
         public Dictionary<string, string> FindFile(string file, bool recursive)
-        {
-            return RecursiveFind(file, recursive);
-        }
-
-        private Dictionary<string, string> RecursiveFind(string file, bool recursive)
         {
             SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             foreach (string hint in Hints.Where(Directory.Exists))
