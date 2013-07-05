@@ -1,6 +1,7 @@
 ﻿<package name="VisualStudio" default="11.0">
   <version value="11.0">
     <hints>
+      <hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\11.0" name="InstallDir" />
       <hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0" name="InstallDir" />
     </hints>
     <names>

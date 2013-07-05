@@ -12,12 +12,16 @@ namespace NAntFind
 
         public void AddPath(string value)
         {
+            value = value.Trim();
+            if (string.IsNullOrEmpty(value) || _values.Contains(value))
+                return;
             _values.Add(value);
         }
 
         public void AddRegistry(string key, string name)
         {
-            _values.Add(Registry.GetValue(key, name, String.Empty).ToString());
+            var value = Registry.GetValue(key, name, String.Empty).ToString();
+            AddPath(value);
         }
 
         public int Count { get { return _values.Count; } }
