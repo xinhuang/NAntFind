@@ -15,25 +15,26 @@ NAntFind is a CMake find style dependency discovery extension for NAnt.
 
 The FindSQLServer.include
 
-    <package name="SQLServer">
-        <version value="foo">
+    <package name="VisualStudio" default="11.0">
+        <version value="11.0">
         	<hints>
-    			<hint value="C:\Program Files\Microsoft SQL Server\bar\Tools\Binn" />
-    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\bar\Tools\Binn" />
+				<hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0" name="InstallDir" />
     		</hints>
     		<names>
-    			<name value="SQLCmd.exe" />
-    			<name value="sqlmonitor.exe" />
+    			<name value="devenv.exe" />
+    			<name value="tf.exe" />
     		</names>
     	</version>
-    	<version>
+    	<version value="10.0">
     		<hints>
-    			<hint value="C:\Program Files\Microsoft SQL Server\${version}\Tools\Binn" />
-    			<hint value="C:\Program Files (x86)\Microsoft SQL Server\${version}\Tools\Binn" />
+    			<hint value="C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE" />
+    			<hint value="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE" />
+				<hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0" name="InstallDir" />
+				<hint key="HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0" name="InstallDir" />
     		</hints>
     		<names>
-    			<name value="SQLCmd.exe" />
-    			<name value="sqlmonitor.exe" />
+    			<name value="devenv.exe" />
+    			<name value="tf.exe" />
     		</names>
     	</version>
     </package>
@@ -48,6 +49,7 @@ Feature
 * Search for find modules in ${find.module.path}
 * Search for a specific version
 * Default package version can be specified
+* Query value from registry
 
 Result can be queried in NAnt variables:
 * **${package.found}**: True/False
@@ -57,8 +59,8 @@ Result can be queried in NAnt variables:
 ----
 TODO
 ----
-* Use environment variables in find modules
-* Query value from registry
+* Allow substution in find module
+* Use environment variables in find module
 * A more flexible and easy to use DSL
 
 ----
