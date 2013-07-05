@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml;
 using Microsoft.Win32;
 
@@ -18,12 +19,6 @@ namespace NAntFind
             _values.Add(value);
         }
 
-        public void AddRegistry(string key, string name)
-        {
-            var value = Registry.GetValue(key, name, String.Empty).ToString();
-            AddPath(value);
-        }
-
         public int Count { get { return _values.Count; } }
 
         public static Hints Parse(XmlElement element)
@@ -35,18 +30,26 @@ namespace NAntFind
             var hintNodes = element.GetChildNodes("hint");
             foreach (var node in hintNodes)
             {
-                var dir = node.GetAttributeValue("value").Trim();
-                if (String.IsNullOrEmpty(dir))
-                {
-                    var key = node.GetAttributeValue("key").Trim();
-                    var name = node.GetAttributeValue("name").Trim();
-                    hints.AddRegistry(key, name);
-                }
-                if (!String.IsNullOrEmpty(dir))
-                    hints.AddPath(dir);
+                hints.AddPath(GetPath(node, hints));
             }
 
             return hints;
+        }
+
+        private static string GetPath(XmlNode node, Hints hints)
+        {
+            Debug.Assert(node.Attributes != null);
+            if (node.Attributes["value"] != null)
+                return node.GetAttributeValue("value");
+            if (node.Attributes["key"] != null && node.Attributes["name"] != null)
+            {
+                var key = node.GetAttributeValue("key").Trim();
+                var name = node.GetAttributeValue("name").Trim();
+                return Registry.GetValue(key, name, String.Empty).ToString();
+            }
+            if (node.Attributes["env"] != null)
+                return Environment.GetEnvironmentVariable(node.Attributes["env"].Value) ?? string.Empty;
+            throw new Exception("Invalid find module. Context: `" + node.InnerXml + "'");
         }
 
         public IEnumerator<string> GetEnumerator()
