@@ -22,16 +22,20 @@ namespace TestNAntFind.IntegrationTest
 
         private static void Run(string script)
         {
-            string nantPath = Path.Combine(Environment.CurrentDirectory, @"nant.exe");
-            var process = new Process();
-            process.StartInfo.FileName = nantPath;
-            process.StartInfo.Arguments = string.Format(@"-nologo /f:{0} -v", script);
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
+            var process = new Process
+                {
+                    StartInfo =
+                        {
+                            FileName = "nant.exe",
+                            Arguments = string.Format(@"-nologo /f:{0} -v", script),
+                            UseShellExecute = false,
+                            RedirectStandardError = true,
+                            RedirectStandardInput = true,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true,
+                            WorkingDirectory = Environment.CurrentDirectory
+                        }
+                };
 
             process.Start();
             process.WaitForExit();
