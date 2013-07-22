@@ -63,12 +63,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestFindFile.build" />
     <None Include="IntegrationTest\TestFindFromEnv.build" />
     <None Include="IntegrationTest\TestFindFromHint.build" />
     <None Include="IntegrationTest\TestFindFromRegistry.build" />
-    <None Include="IntegrationTest\NAnt.build">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntegrationTest\FindModule\FindVisualStudioFromEnv.xml" />

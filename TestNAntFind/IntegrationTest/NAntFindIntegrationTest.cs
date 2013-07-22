@@ -8,12 +8,6 @@ namespace TestNAntFind.IntegrationTest
     public class NAntFindIntegrationTest
     {
         [TestMethod]
-        public void a_big_test()
-        {
-            Run("NAnt.build");
-        }
-
-        [TestMethod]
         public void should_find_visual_studio_110_from_registry()
         {
             Run("TestFindFromRegistry.build");
@@ -29,6 +23,12 @@ namespace TestNAntFind.IntegrationTest
         public void should_find_visual_studio_110_from_env()
         {
             Run("TestFindFromEnv.build");
+        }
+
+        [TestMethod]
+        public void should_find_devenv_in_visual_studio_110()
+        {
+            Run("TestFindFile.build");
         }
 
         private static void Run(string script)
