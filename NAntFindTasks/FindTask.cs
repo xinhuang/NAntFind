@@ -79,7 +79,7 @@ namespace NAntFind
             }
         }
 
-        private IEnumerable<string> GetSearchPath()
+        private IList<string> GetSearchPath()
         {
             var searchPath = new List<string> {Environment.CurrentDirectory};
             if (!string.IsNullOrWhiteSpace(Project.Properties["find.module.path"]))
@@ -89,13 +89,19 @@ namespace NAntFind
             return searchPath;
         }
 
-        private string GetFindScriptPath(string package, IEnumerable<string> searchPath)
+        private string GetFindScriptPath(string package, IList<string> searchPath)
         {
             string filename = GetFindScriptName(package);
-            string dir = searchPath.First(p => File.Exists(Path.Combine(p, filename)));
-            if (string.IsNullOrWhiteSpace(dir))
-                throw new FileNotFoundException("Cannot load file " + filename + ", find aborted.");
-            return Path.Combine(dir, filename);
+            foreach (var path in searchPath)
+            {
+                var file = Path.Combine(path, filename);
+                if (File.Exists(file))
+                    return file;
+            }
+            var message = "Cannot locate find module " + filename + " under\n";
+            foreach (var path in searchPath)
+                message += path;
+            throw new FileNotFoundException(message);
         }
 
         private static string GetFindScriptName(string packageName)
