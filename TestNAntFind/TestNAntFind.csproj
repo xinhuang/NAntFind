@@ -63,6 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestFindFromRegistry.build" />
     <None Include="IntegrationTest\NAnt.build">
       <SubType>Designer</SubType>
     </None>
@@ -72,6 +73,7 @@
     <Content Include="IntegrationTest\FindModule\FindVisualStudio.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="IntegrationTest\FindModule\FindVisualStudioFromRegistry.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

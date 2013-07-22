@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project default="FindFromRegistry">
+  <property name="find.module.path" value="FindModule" />
+  <target name="FindFromRegistry">
+    <find package="VisualStudioFromRegistry" required="true" version="11.0" />
+  </target>
+</project>
