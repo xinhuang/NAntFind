@@ -61,10 +61,18 @@ namespace NAntFind
         {
             string script = GetFindScriptPath(Package, GetSearchPath());
             var package = new Package(File.ReadAllText(script));
-            Dictionary<string, string> result = package.Find(Version);
-            foreach (var property in result)
+            try
             {
-                Project.Properties[property.Key] = property.Value;
+                Dictionary<string, string> result = package.Find(Version);
+                foreach (var property in result)
+                {
+                    Project.Properties[property.Key] = property.Value;
+                }
+            }
+            catch (FindException)
+            {
+                Project.Properties[Package + ".found"] = false.ToString();
+                throw;
             }
         }
 
@@ -72,10 +80,18 @@ namespace NAntFind
         {
             string script = GetFindScriptPath(Package, GetSearchPath());
             var package = new Package(File.ReadAllText(script));
-            Dictionary<string, string> result = package.FindFile(FileName, Version, Recursive);
-            foreach (var property in result)
+            try
             {
-                Project.Properties[property.Key] = property.Value;
+                Dictionary<string, string> result = package.FindFile(FileName, Version, Recursive);
+                foreach (var property in result)
+                {
+                    Project.Properties[property.Key] = property.Value;
+                }
+            }
+            catch (FindException)
+            {
+                Project.Properties[FileName + ".found"] = false.ToString();
+                throw;
             }
         }
 
