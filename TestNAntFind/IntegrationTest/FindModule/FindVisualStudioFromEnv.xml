@@ -1,0 +1,11 @@
+﻿<package name="VisualStudioFromEnv" default="11.0">
+  <version value="11.0">
+    <hints>
+      <hint env="VisualStudio110InstallDir" />
+    </hints>
+    <names>
+      <name value="devenv.exe" />
+      <name value="tf.exe" />
+    </names>
+  </version>
+</package>

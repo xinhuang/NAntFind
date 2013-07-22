@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project default="Test">
+  <property name="find.module.path" value="FindModule" />
+  <target name="Test">
+    <find package="VisualStudioFromRegistry" required="true" version="11.0" />
+
+    <setenv>
+      <variable name="VisualStudio110InstallDir" value="${VisualStudioFromRegistry}" />
+    </setenv>
+
+    <find package="VisualStudioFromEnv" version="11.0" required="true" />
+  </target>
+</project>

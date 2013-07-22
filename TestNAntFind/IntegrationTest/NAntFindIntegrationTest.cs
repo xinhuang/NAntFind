@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestNAntFind.IntegrationTest
@@ -24,6 +23,12 @@ namespace TestNAntFind.IntegrationTest
         public void should_find_visual_studio_110_from_hint()
         {
             Run("TestFindFromHint.build");
+        }
+
+        [TestMethod]
+        public void should_find_visual_studio_110_from_env()
+        {
+            Run("TestFindFromEnv.build");
         }
 
         private static void Run(string script)

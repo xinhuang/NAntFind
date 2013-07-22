@@ -63,6 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestFindFromEnv.build" />
     <None Include="IntegrationTest\TestFindFromHint.build" />
     <None Include="IntegrationTest\TestFindFromRegistry.build" />
     <None Include="IntegrationTest\NAnt.build">
@@ -70,6 +71,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IntegrationTest\FindModule\FindVisualStudioFromEnv.xml" />
     <Content Include="IntegrationTest\FindModule\FindVisualStudioFromHint.xml" />
     <Content Include="IntegrationTest\FindModule\FindSQLServer.xml" />
     <Content Include="IntegrationTest\FindModule\FindVisualStudio.xml">
