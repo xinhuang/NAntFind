@@ -63,6 +63,7 @@ Result can be queried in NAnt variables:
 ----
 TODO
 ----
+* If no version is specified, and default cannot be located, returns the most updated package/file
 * Allow substution in find module
 * A more flexible and easy to use DSL
 
