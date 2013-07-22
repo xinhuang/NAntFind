@@ -15,9 +15,15 @@ namespace TestNAntFind.IntegrationTest
         }
 
         [TestMethod]
-        public void should_find_visual_studio_from_registry()
+        public void should_find_visual_studio_110_from_registry()
         {
             Run("TestFindFromRegistry.build");
+        }
+
+        [TestMethod]
+        public void should_find_visual_studio_110_from_hint()
+        {
+            Run("TestFindFromHint.build");
         }
 
         private static void Run(string script)

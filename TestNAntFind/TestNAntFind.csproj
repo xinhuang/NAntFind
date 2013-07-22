@@ -63,12 +63,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestFindFromHint.build" />
     <None Include="IntegrationTest\TestFindFromRegistry.build" />
     <None Include="IntegrationTest\NAnt.build">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IntegrationTest\FindModule\FindVisualStudioFromHint.xml" />
     <Content Include="IntegrationTest\FindModule\FindSQLServer.xml" />
     <Content Include="IntegrationTest\FindModule\FindVisualStudio.xml">
       <SubType>Designer</SubType>

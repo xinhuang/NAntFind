@@ -2,6 +2,6 @@
 <project default="Test">
   <property name="find.module.path" value="FindModule" />
   <target name="Test">
-    <find package="VisualStudioFromRegistry" required="true" version="11.0" />
+    <find package="VisualStudioFromHint" required="true" version="11.0" />
   </target>
 </project>
