@@ -55,20 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlNodeExt.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="FindSQLServer.xml" />
-    <Content Include="FindVisualStudio.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="NAnt.build">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)\*.build" "$(TargetDir)"
-if not exist "$(TargetDir)\find" ( mkdir "$(TargetDir)\find" )
-copy "$(ProjectDir)\Find*.xml" "$(TargetDir)\find"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

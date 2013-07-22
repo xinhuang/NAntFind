@@ -45,7 +45,7 @@ namespace NAntFind
                 else
                 {
                     Project.Log(Level.Info, "Finding file `{0}' in `{1}' {2}...",
-                                FileName, Package, Recursive ? "recursively" : "only in top level");
+                                FileName, Package, Recursive ? "recursively" : "in top level only");
                     FindFile();
                 }
             }

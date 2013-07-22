@@ -5,12 +5,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAntFindTasks", "NAntFindTa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3595C947-7ADB-4902-925D-7AC952D00E55}"
 	ProjectSection(SolutionItems) = preProject
+		NAntFind.testsettings = NAntFind.testsettings
+		NAntFind.vsmdi = NAntFind.vsmdi
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNAntFind", "TestNAntFind\TestNAntFind.csproj", "{587EB167-B06C-4757-8609-B11D4454509B}"
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = NAntFind.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

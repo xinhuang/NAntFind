@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <project default="NAntFindExample">
-  <property name="find.module.path" value="find" />
+  <property name="find.module.path" value="FindModule" />
   <target name="NAntFindExample">
     <!--Find Visual Studio 2012-->
     <find package="VisualStudio" required="true" version="11.0" />
