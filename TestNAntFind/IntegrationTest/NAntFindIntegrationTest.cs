@@ -28,7 +28,7 @@ namespace TestNAntFind.IntegrationTest
         [TestMethod]
         public void should_find_devenv_in_visual_studio_110()
         {
-            Run("TestFindFile.build");
+            Run("TestFindExistingFile.build");
         }
 
         private static void Run(string script)
