@@ -2,6 +2,11 @@
 <project default="Test">
   <property name="find.module.path" value="FindModule" />
   <target name="Test">
-    <find file="devenv.exe" package="VisualStudioFromRegistry" required="true" version="11.0" recursive="true" />
+    <property name="expected.version" value="11.0" />
+    <find file="devenv.exe" package="VisualStudioFromRegistry" required="true" version="${expected.version}" recursive="true" />
+    
+    <fail unless="${devenv.exe.found}" />
+    <fail unless="${devenv.exe.version == expected.version}" />
+    <fail unless="${devenv.exe != ''}" />
   </target>
 </project>
