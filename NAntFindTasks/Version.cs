@@ -36,29 +36,6 @@ namespace NAntFind
                     select node.Attributes["value"].Value).ToList();
         }
 
-        public Dictionary<string, string> FindFile(string file, bool recursive)
-        {
-            SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            foreach (string hint in Hints.Where(Directory.Exists))
-            {
-                foreach (string path in Directory.EnumerateFiles(hint, file, searchOption))
-                {
-                    return MakeResult(file, path);
-                }
-            }
-            throw new FileNotFoundException(file + " cannot be found.");
-        }
-
-        private Dictionary<string, string> MakeResult(string file, string path)
-        {
-            return new Dictionary<string, string>
-            {
-                {file, path},
-                {file + ".found", true.ToString()},
-                {file + ".version", Value}
-            };
-        }
-
         public string Find()
         {
             foreach (string hint in Hints.Where(Directory.Exists))
@@ -76,6 +53,19 @@ namespace NAntFind
                     return hint;
             }
             throw new PackageNotFoundException("Package of Version " + Value + " cannot be found.");
+        }
+
+        public string FindFile(string file, bool recursive)
+        {
+            SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            foreach (string hint in Hints.Where(Directory.Exists))
+            {
+                foreach (string path in Directory.EnumerateFiles(hint, file, searchOption))
+                {
+                    return path;
+                }
+            }
+            throw new FileNotFoundException(file + " cannot be found.");
         }
     }
 }

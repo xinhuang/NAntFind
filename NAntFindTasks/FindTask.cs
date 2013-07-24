@@ -80,11 +80,10 @@ namespace NAntFind
             var package = new Package(File.ReadAllText(script));
             try
             {
-                Dictionary<string, string> result = package.FindFile(FileName, Version, Recursive);
-                foreach (var property in result)
-                {
-                    Project.Properties[property.Key] = property.Value;
-                }
+                var result = package.FindFile(FileName, Version, Recursive);
+                Project.Properties[FileName] = result.Path;
+                Project.Properties[FileName + ".version"] = result.Version;
+                Project.Properties[FileName + ".found"] = true.ToString();
             }
             catch (FindException)
             {

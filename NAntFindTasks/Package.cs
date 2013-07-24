@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
 
@@ -50,16 +49,20 @@ namespace NAntFind
             get { return _defaultVersion; }
         }
 
-        public Dictionary<string, string> FindFile(string file, string ver, bool recursive)
+        public FindResult FindFile(string file, string ver, bool recursive)
         {
             if (string.IsNullOrWhiteSpace(ver))
                 ver = DefaultVersion;
-            if (!Versions.ContainsKey(ver))
-                throw new FindModuleException(String.Format("Don't know how to find `{0}' of Ver {1}",
-                                                            file, ver));
 
-            Version version = Versions[ver];
-            return version.FindFile(file, recursive);
+            Version targetVersion;
+            if (!Versions.TryGetValue(ver, out targetVersion))
+                throw new FindModuleException("Dont know how to find Ver {2}" + ver);
+
+            return new FindResult()
+                {
+                    Path = targetVersion.FindFile(file, recursive),
+                    Version = targetVersion.Value,
+                };
         }
 
         public FindResult Find(string ver)
