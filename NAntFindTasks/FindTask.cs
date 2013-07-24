@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using NAnt.Core;
 using NAnt.Core.Attributes;
 
@@ -63,11 +62,10 @@ namespace NAntFind
             var package = new Package(File.ReadAllText(script));
             try
             {
-                Dictionary<string, string> result = package.Find(Version);
-                foreach (var property in result)
-                {
-                    Project.Properties[property.Key] = property.Value;
-                }
+                var result = package.Find(Version);
+                Project.Properties[Package] = result.Path;
+                Project.Properties[Package + ".version"] = result.Version;
+                Project.Properties[Package + ".found"] = true.ToString();
             }
             catch (FindException)
             {

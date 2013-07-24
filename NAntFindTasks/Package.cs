@@ -35,17 +35,17 @@ namespace NAntFind
             }
         }
 
-        public string Name
+        internal string Name
         {
             get { return _name; }
         }
 
-        public IDictionary<string, Version> Versions
+        internal IDictionary<string, Version> Versions
         {
             get { return _versions; }
         }
 
-        public string DefaultVersion
+        private string DefaultVersion
         {
             get { return _defaultVersion; }
         }
@@ -62,20 +62,21 @@ namespace NAntFind
             return version.FindFile(file, recursive);
         }
 
-        public Dictionary<string, string> Find(string ver)
+        public FindResult Find(string ver)
         {
             if (string.IsNullOrWhiteSpace(ver))
                 ver = DefaultVersion;
-            if (!Versions.ContainsKey(ver))
+
+            Version targetVersion;
+            if (!Versions.TryGetValue(ver, out targetVersion))
                 throw new FindModuleException("Dont know how to find Ver {2}" + ver);
 
-            string path = Versions[ver].Find();
-            return new Dictionary<string, string>
-            {
-                {Name, path},
-                {Name + ".found", true.ToString()},
-                {Name + ".version", ver},
-            };
+            return new FindResult()
+                {
+                    Path = targetVersion.Find(),
+                    Version = targetVersion.Value,
+                };
+
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="FileNotFoundException.cs" />
     <Compile Include="FindException.cs" />
     <Compile Include="FindModuleException.cs" />
+    <Compile Include="FindResult.cs" />
     <Compile Include="FindTask.cs" />
     <Compile Include="Hints.cs" />
     <Compile Include="Package.cs" />
