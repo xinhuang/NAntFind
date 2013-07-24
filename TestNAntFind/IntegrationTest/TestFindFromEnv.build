@@ -2,12 +2,17 @@
 <project default="Test">
   <property name="find.module.path" value="FindModule" />
   <target name="Test">
-    <find package="VisualStudioFromRegistry" required="true" version="11.0" />
+    <property name="expected.version" value="11.0" />
+    <find package="VisualStudioFromRegistry" required="true" version="${expected.version}" />
 
     <setenv>
       <variable name="VisualStudio110InstallDir" value="${VisualStudioFromRegistry}" />
     </setenv>
 
-    <find package="VisualStudioFromEnv" version="11.0" required="true" />
+    <find package="VisualStudioFromEnv" version="${expected.version}" required="true" />
+    
+    <fail unless="${VisualStudioFromEnv.found}" />
+    <fail unless="${VisualStudioFromEnv.version == expected.version}" />
+    <fail unless="${VisualStudioFromEnv != ''}" />
   </target>
 </project>

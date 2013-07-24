@@ -2,6 +2,12 @@
 <project default="Test">
   <property name="find.module.path" value="FindModule" />
   <target name="Test">
-    <find package="VisualStudioFromHint" required="true" version="11.0" />
+    <property name="expected.version" value="11.0" />
+    
+    <find package="VisualStudioFromHint" required="true" version="${expected.version}" />
+
+    <fail unless="${VisualStudioFromHint.found}" />
+    <fail unless="${VisualStudioFromHint.version == expected.version}" />
+    <fail unless="${VisualStudioFromHint != ''}" />
   </target>
 </project>
