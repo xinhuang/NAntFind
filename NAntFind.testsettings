@@ -2,8 +2,8 @@
 <TestSettings name="NAntFind" id="bb338048-17ed-48f2-85ed-6a3537bc7411" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>These are default test settings for a local test run.</Description>
   <Deployment>
-    <DeploymentItem filename="TestNAntFind\IntegrationTest\" />
     <DeploymentItem filename="TestNAntFind\nant-0.92\bin\" />
+    <DeploymentItem filename="TestNAntFind\IntegrationTest\TestData\" />
   </Deployment>
   <Execution>
     <TestTypeSpecific>

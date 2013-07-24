@@ -56,7 +56,7 @@ namespace NAntFind
 
             Version targetVersion;
             if (!Versions.TryGetValue(ver, out targetVersion))
-                throw new FindModuleException("Dont know how to find Ver {2}" + ver);
+                throw new FindModuleException("Don't know how to find version " + ver);
 
             return new FindResult()
                 {
@@ -72,14 +72,13 @@ namespace NAntFind
 
             Version targetVersion;
             if (!Versions.TryGetValue(ver, out targetVersion))
-                throw new FindModuleException("Dont know how to find Ver {2}" + ver);
+                throw new FindModuleException("Don't know how to find version " + ver);
 
             return new FindResult()
                 {
                     Path = targetVersion.Find(),
                     Version = targetVersion.Value,
                 };
-
         }
     }
 }

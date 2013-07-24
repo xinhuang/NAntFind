@@ -1,0 +1,26 @@
+﻿<package name="Apolo">
+  <version value="v10">
+    <hints>
+      <hint value="PackageApolo\v10" />
+    </hints>
+    <names>
+      <name value="apolo.txt" />
+    </names>
+  </version>
+  <version value="v20">
+    <hints>
+      <hint value="PackageApolo\v20" />
+    </hints>
+    <names>
+      <name value="apolo.txt" />
+    </names>
+  </version>
+  <version value="v30">
+    <hints>
+      <hint value="PackageApolo\v30" />
+    </hints>
+    <names>
+      <name value="apolo.txt" />
+    </names>
+  </version>
+</package>
