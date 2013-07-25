@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project default="Test">
+  <property name="find.module.path" value="FindModule" />
+  <target name="Test">
+    <find package="Jupiter" required="true" />
+    
+    <fail unless="${Jupiter.found}" />
+  </target>
+</project>

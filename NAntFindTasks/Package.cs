@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Xml;
 
 namespace NAntFind
@@ -68,17 +70,45 @@ namespace NAntFind
         public FindResult Find(string ver)
         {
             if (string.IsNullOrWhiteSpace(ver))
-                ver = DefaultVersion;
+                return FindAny();
+            return FindExactly(ver);
+        }
 
+        private FindResult FindAny()
+        {
+            FindResult r;
+            if (TryFind(DefaultVersion, out r))
+                return r;
+            if (Versions.Any(version => TryFind(version.Key, out r)))
+                return r;
+            throw new PackageNotFoundException("Package " + Name + " of any version cannot be found.");
+        }
+
+        private FindResult FindExactly(string ver)
+        {
             Version targetVersion;
             if (!Versions.TryGetValue(ver, out targetVersion))
                 throw new FindModuleException("Don't know how to find version " + ver);
 
             return new FindResult()
-                {
-                    Path = targetVersion.Find(),
-                    Version = targetVersion.Value,
-                };
+            {
+                Path = targetVersion.Find(),
+                Version = targetVersion.Value,
+            };
+        }
+
+        private bool TryFind(string version, out FindResult result)
+        {
+            Debug.Assert(Versions.ContainsKey(version));
+
+            result = new FindResult();
+            string path;
+            if (!Versions[version].TryFind(out path))
+                return false;
+
+            result.Version = version;
+            result.Path = path;
+            return true;
         }
     }
 }

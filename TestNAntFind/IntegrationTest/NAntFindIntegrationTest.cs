@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestNAntFind.IntegrationTest
@@ -35,7 +34,13 @@ namespace TestNAntFind.IntegrationTest
         [TestMethod]
         public void given_no_version_specified_should_return_default_version()
         {
-            Run("test.build");
+            Run("GivenNoVersionShouldReturnDefault.build");
+        }
+
+        [TestMethod]
+        public void given_no_version_specified_and_no_default_should_return_default_version()
+        {
+            Run("GivenNoVersionSpecifiedAndDefaultMissingShouldReturnAnyVersion.build");
         }
 
         private static void Run(string script)

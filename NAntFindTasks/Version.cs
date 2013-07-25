@@ -38,6 +38,15 @@ namespace NAntFind
 
         public string Find()
         {
+            string result;
+            if (!TryFind(out result))
+                throw new PackageNotFoundException("Package of Version " + Value + " cannot be found.");
+            return result;
+        }
+
+        public bool TryFind(out string path)
+        {
+            path = string.Empty;
             foreach (string hint in Hints.Where(Directory.Exists))
             {
                 bool found = true;
@@ -50,9 +59,12 @@ namespace NAntFind
                     }
                 }
                 if (found)
-                    return hint;
+                {
+                    path = hint;
+                    return true;
+                }
             }
-            throw new PackageNotFoundException("Package of Version " + Value + " cannot be found.");
+            return false;
         }
 
         public string FindFile(string file, bool recursive)

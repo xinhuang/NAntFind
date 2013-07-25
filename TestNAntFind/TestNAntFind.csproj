@@ -63,7 +63,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IntegrationTest\TestData\test.build" />
+    <None Include="IntegrationTest\TestData\GivenNoVersionSpecifiedAndDefaultMissingShouldReturnAnyVersion.build" />
+    <None Include="IntegrationTest\TestData\GivenNoVersionShouldReturnDefault.build" />
     <None Include="IntegrationTest\TestData\TestFindExistingFile.build">
       <SubType>Designer</SubType>
     </None>
@@ -75,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntegrationTest\TestData\FindModule\FindApolo.xml" />
+    <Content Include="IntegrationTest\TestData\FindModule\FindJupiter.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromEnv.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromHint.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindSQLServer.xml" />

@@ -1,0 +1,26 @@
+﻿<package name="Jupiter" default="v30">
+  <version value="v10">
+    <hints>
+      <hint value="PackageJupiter\v10" />
+    </hints>
+    <names>
+      <name value="Jupiter.txt" />
+    </names>
+  </version>
+  <version value="v20">
+    <hints>
+      <hint value="PackageJupiter\v20" />
+    </hints>
+    <names>
+      <name value="Jupiter.txt" />
+    </names>
+  </version>
+  <version value="v30">
+    <hints>
+      <hint value="PackageJupiter\v30" />
+    </hints>
+    <names>
+      <name value="Jupiter.txt" />
+    </names>
+  </version>
+</package>
