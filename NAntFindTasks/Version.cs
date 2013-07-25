@@ -44,7 +44,7 @@ namespace NAntFind
             return result;
         }
 
-        public bool TryFind(out string path)
+        private bool TryFind(out string path)
         {
             path = string.Empty;
             foreach (string hint in Hints.Where(Directory.Exists))

@@ -3,7 +3,5 @@
   <property name="find.module.path" value="FindModule" />
   <target name="Test">
     <find package="Jupiter" required="true" />
-    
-    <fail unless="${Jupiter.found}" />
   </target>
 </project>

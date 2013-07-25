@@ -10,40 +10,50 @@ namespace TestNAntFind.IntegrationTest
         [TestMethod]
         public void should_find_visual_studio_110_from_registry()
         {
-            Run("TestFindFromRegistry.build");
+            Assert("TestFindFromRegistry.build");
         }
 
         [TestMethod]
         public void should_find_visual_studio_110_from_hint()
         {
-            Run("TestFindFromHint.build");
+            Assert("TestFindFromHint.build");
         }
 
         [TestMethod]
         public void should_find_visual_studio_110_from_env()
         {
-            Run("TestFindFromEnv.build");
+            Assert("TestFindFromEnv.build");
         }
 
         [TestMethod]
         public void should_find_devenv_in_visual_studio_110()
         {
-            Run("TestFindExistingFile.build");
+            Assert("TestFindExistingFile.build");
         }
 
         [TestMethod]
         public void given_no_version_specified_should_return_default_version()
         {
-            Run("GivenNoVersionShouldReturnDefault.build");
+            Assert("GivenNoVersionShouldReturnDefault.build");
         }
 
         [TestMethod]
         public void given_no_version_specified_and_no_default_should_return_default_version()
         {
-            Run("GivenNoVersionSpecifiedAndDefaultMissingShouldReturnAnyVersion.build");
+            AssertFail("GivenNoVersionSpecifiedAndDefaultMissingShouldFail.build");
         }
 
-        private static void Run(string script)
+        private void AssertFail(string script)
+        {
+            AssertExitCode(1, script);
+        }
+
+        private static void Assert(string script)
+        {
+            AssertExitCode(0, script);
+        }
+
+        private static void AssertExitCode(int expected, string script)
         {
             var process = new Process
                 {
@@ -63,7 +73,8 @@ namespace TestNAntFind.IntegrationTest
             process.Start();
             process.WaitForExit();
 
-            Assert.AreEqual(0, process.ExitCode, process.StandardOutput.ReadToEnd());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expected, process.ExitCode,
+                                                                         process.StandardOutput.ReadToEnd());
         }
     }
 }

@@ -63,7 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IntegrationTest\TestData\GivenNoVersionSpecifiedAndDefaultMissingShouldReturnAnyVersion.build" />
+    <None Include="IntegrationTest\TestData\GivenNoVersionSpecifiedAndDefaultMissingShouldFail.build" />
     <None Include="IntegrationTest\TestData\GivenNoVersionShouldReturnDefault.build" />
     <None Include="IntegrationTest\TestData\TestFindExistingFile.build">
       <SubType>Designer</SubType>
