@@ -63,6 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestData\test.build" />
     <None Include="IntegrationTest\TestData\TestFindExistingFile.build">
       <SubType>Designer</SubType>
     </None>

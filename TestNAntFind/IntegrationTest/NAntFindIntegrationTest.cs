@@ -32,6 +32,12 @@ namespace TestNAntFind.IntegrationTest
             Run("TestFindExistingFile.build");
         }
 
+        [TestMethod]
+        public void given_no_version_specified_should_return_default_version()
+        {
+            Run("test.build");
+        }
+
         private static void Run(string script)
         {
             var process = new Process

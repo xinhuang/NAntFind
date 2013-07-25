@@ -1,4 +1,4 @@
-﻿<package name="Apolo">
+﻿<package name="Apolo" default="v20">
   <version value="v10">
     <hints>
       <hint value="PackageApolo\v10" />

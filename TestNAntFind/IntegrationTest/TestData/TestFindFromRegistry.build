@@ -6,7 +6,7 @@
     
     <find package="VisualStudioFromRegistry" required="true" version="${expected.version}" />
 
-    <fail unless="${VisualStudioFromRegistry.found}" />
+    <!--<fail unless="${VisualStudioFromRegistry.found}" />-->
     <fail unless="${VisualStudioFromRegistry.version == expected.version}" />
     <fail unless="${VisualStudioFromRegistry != ''}" />
   </target>
