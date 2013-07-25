@@ -41,6 +41,12 @@ namespace TestNAntFind.IntegrationTest
             AssertFail("GivenNoVersionSpecifiedAndDefaultMissingShouldFail.build");
         }
 
+        [TestMethod]
+        public void given_no_version_specified_in_find_and_module_should_return_only_one_as_implicit_default()
+        {
+            Assert("TestFindImplicitDefault.build");
+        }
+
         private static void AssertFail(string script)
         {
             NAnt.AssertFail(script);

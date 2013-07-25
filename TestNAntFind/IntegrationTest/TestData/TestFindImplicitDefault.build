@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project default="Test">
+  <property name="find.module.path" value="FindModule" />
+  <target name="Test">
+    <find package="ImplicitDefault" required="true" />
+    
+    <fail unless="${ImplicitDefault.found}" />
+    <fail unless="${ImplicitDefault != ''}" />
+  </target>
+</project>

@@ -64,6 +64,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestData\TestFindImplicitDefault.build">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="IntegrationTest\TestData\GivenNoVersionSpecifiedAndDefaultMissingShouldFail.build" />
     <None Include="IntegrationTest\TestData\GivenNoVersionShouldReturnDefault.build" />
     <None Include="IntegrationTest\TestData\TestFindExistingFile.build">
@@ -76,11 +79,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IntegrationTest\TestData\FindModule\FindImplicitDefault.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindApolo.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindJupiter.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromEnv.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromHint.xml" />
-    <Content Include="IntegrationTest\TestData\FindModule\FindSQLServer.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudio.xml">
       <SubType>Designer</SubType>
     </Content>
