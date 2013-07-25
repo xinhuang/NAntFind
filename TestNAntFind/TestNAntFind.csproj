@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationTest\NAnt.cs" />
     <Compile Include="IntegrationTest\NAntFindIntegrationTest.cs" />
     <Compile Include="UnitTest\PackageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

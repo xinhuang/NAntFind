@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestNAntFind.IntegrationTest
 {
@@ -38,43 +36,19 @@ namespace TestNAntFind.IntegrationTest
         }
 
         [TestMethod]
-        public void given_no_version_specified_and_no_default_should_return_default_version()
+        public void given_no_version_specified_and_no_default_should_fail()
         {
             AssertFail("GivenNoVersionSpecifiedAndDefaultMissingShouldFail.build");
         }
 
-        private void AssertFail(string script)
+        private static void AssertFail(string script)
         {
-            AssertExitCode(1, script);
+            NAnt.AssertFail(script);
         }
 
         private static void Assert(string script)
         {
-            AssertExitCode(0, script);
-        }
-
-        private static void AssertExitCode(int expected, string script)
-        {
-            var process = new Process
-                {
-                    StartInfo =
-                        {
-                            FileName = "nant.exe",
-                            Arguments = string.Format(@"-nologo /f:{0} -v", script),
-                            UseShellExecute = false,
-                            RedirectStandardError = true,
-                            RedirectStandardInput = true,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true,
-                            WorkingDirectory = Environment.CurrentDirectory
-                        }
-                };
-
-            process.Start();
-            process.WaitForExit();
-
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expected, process.ExitCode,
-                                                                         process.StandardOutput.ReadToEnd());
+            NAnt.Assert(script);
         }
     }
 }
