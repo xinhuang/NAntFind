@@ -66,6 +66,8 @@ namespace NAntFind
                 Project.Properties[Package] = result.Path;
                 Project.Properties[Package + ".version"] = result.Version;
                 Project.Properties[Package + ".found"] = true.ToString();
+                Project.Log(Level.Info, "Found: version " + result.Version);
+                Project.Log(Level.Info, result.Path);
             }
             catch (FindException)
             {

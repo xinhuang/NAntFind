@@ -64,6 +64,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IntegrationTest\TestData\GivenRegistryKeyNotExistShouldUseHintValueToSearch.build" />
     <None Include="IntegrationTest\TestData\TestFindImplicitDefault.build">
       <SubType>Designer</SubType>
     </None>
@@ -87,6 +88,7 @@
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudio.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromNonExistRegistry.xml" />
     <Content Include="IntegrationTest\TestData\FindModule\FindVisualStudioFromRegistry.xml" />
   </ItemGroup>
   <ItemGroup />

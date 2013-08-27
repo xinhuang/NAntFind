@@ -45,7 +45,14 @@ namespace NAntFind
             {
                 var key = node.GetAttributeValue("key").Trim();
                 var name = node.GetAttributeValue("name").Trim();
-                return Registry.GetValue(key, name, String.Empty).ToString();
+                try
+                {
+                    return Registry.GetValue(key, name, String.Empty).ToString();
+                }
+                catch (NullReferenceException)
+                {
+                    return string.Empty;
+                }
             }
             if (node.Attributes["env"] != null)
                 return Environment.GetEnvironmentVariable(node.Attributes["env"].Value) ?? string.Empty;
