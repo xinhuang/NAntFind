@@ -1,7 +1,7 @@
 NAntFind
 ========
 
-	<property name="find.module.path" value="find;dependency/more/find" />
+    <property name="find.module.path" value="find;dependency/more/find" />
 
     <find package="SQLServer" required="true" version="100" />
     <echo message="${SQLServer.found}" />
@@ -63,7 +63,7 @@ Result can be queried in NAnt variables:
 ----
 TODO
 ----
-* If no version is specified, and default cannot be located, returns the most updated package/file
+* Support version specification: use gems syntax
 * Allow substution in find module
 * A more flexible and easy to use DSL
 
