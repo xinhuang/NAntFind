@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NAntFind;
 
-namespace TestNAntFind
+namespace TestNAntFind.UnitTest
 {
     [TestClass]
     public class PackageTest

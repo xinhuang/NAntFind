@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestNAntFind.IntegrationTest;
 
-namespace MWCITasksIntegrationTests
+namespace TestNAntFind.IntegrationTest
 {
     [TestClass]
     public class NAntFindIntegrationTest
